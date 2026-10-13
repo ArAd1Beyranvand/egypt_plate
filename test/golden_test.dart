@@ -27,28 +27,28 @@ void main() {
   /// category id -> (spec, livery, space-separated sample value)
   final Map<String, (PlateSpec, PlateCountry, String)> cases =
       <String, (PlateSpec, PlateCountry, String)>{
-        'private': (EgyptPlates.car, EgyptCountry.private, '2 5 9 4 T G S'),
+        'private': (EgyptPlates.car, EgyptCountry.private, '2594 TGS'),
         'private_cairo': (
           EgyptPlates.cairo,
           EgyptCountry.private,
-          '2 5 9 T G S',
+          '259 TGS',
         ),
-        'private_giza': (EgyptPlates.giza, EgyptCountry.private, '2 5 9 4 G S'),
-        'taxi': (EgyptPlates.car, EgyptCountry.taxi, '2 5 9 4 T G S'),
-        'truck': (EgyptPlates.car, EgyptCountry.truck, '2 5 9 4 T G S'),
-        'bus': (EgyptPlates.car, EgyptCountry.bus, '2 5 9 4 T G S'),
-        'tourist': (EgyptPlates.car, EgyptCountry.tourist, '2 5 9 4 T G S'),
-        'customs': (EgyptPlates.car, EgyptCountry.customs, '2 5 9 4 T G S'),
+        'private_giza': (EgyptPlates.giza, EgyptCountry.private, '2594 GS'),
+        'taxi': (EgyptPlates.car, EgyptCountry.taxi, '2594 TGS'),
+        'truck': (EgyptPlates.car, EgyptCountry.truck, '2594 TGS'),
+        'bus': (EgyptPlates.car, EgyptCountry.bus, '2594 TGS'),
+        'tourist': (EgyptPlates.car, EgyptCountry.tourist, '2594 TGS'),
+        'customs': (EgyptPlates.car, EgyptCountry.customs, '2594 TGS'),
         'diplomatic': (
           EgyptPlates.diplomatic,
           EgyptCountry.diplomatic,
-          '2 5 9 6 3',
+          '259 63',
         ),
-        'police': (EgyptPlates.police, EgyptCountry.police, '2 5 9 4 6 3 S'),
+        'police': (EgyptPlates.police, EgyptCountry.police, '2594 63 S'),
         'motorcycle': (
           EgyptPlates.motorcycle,
           EgyptCountry.motorcycle,
-          'T G S 2 5 9 4',
+          'TGS 2594',
         ),
       };
 

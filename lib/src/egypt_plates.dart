@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
 import 'package:plate_alphabet/plate_alphabet.dart';
 import 'package:plate_core/plate_core.dart';
@@ -199,6 +201,20 @@ abstract final class EgyptPlates {
     motorcycle,
   ];
 
+  static PlateSlot _field(
+    PlateAlphabet alphabet,
+    int count,
+    double left,
+    double top,
+    double pitch,
+    double height,
+  ) => PlateSlot(
+    alphabet: alphabet,
+    box: PlateBox(left, top, count * pitch, height),
+    length: count,
+    spacing: max(0, pitch - 0.6 * 0.72 * height),
+  );
+
   static PlateSpec _car(
     String id, {
     required double digitsLeft,
@@ -210,40 +226,36 @@ abstract final class EgyptPlates {
     final double rightLeft =
         _Layout.carRightCentre - cells * _Layout.carRightPitch / 2;
     final List<PlateSlot> slots = <PlateSlot>[
-      ...plateRegister(
-        alphabet: EgyptAlphabets.digits,
-        count: digits,
-        left: digitsLeft,
-        top: _Layout.carDigitsCy - _Layout.carDigitsHeight / 2,
-        width: _Layout.carLeftPitch,
-        height: _Layout.carDigitsHeight,
+      _field(
+        EgyptAlphabets.digits,
+        digits,
+        digitsLeft,
+        _Layout.carDigitsCy - _Layout.carDigitsHeight / 2,
+        _Layout.carLeftPitch,
+        _Layout.carDigitsHeight,
       ),
     ];
     final List<PlateTextGroup> groups = <PlateTextGroup>[
-      PlateTextGroup(<int>[for (int i = 0; i < digits; i++) i], key: 'digits'),
+      const PlateTextGroup(<int>[0], key: 'digits'),
     ];
-    var next = digits;
+    var cell = 0;
     for (final _Run run in right) {
-      slots.addAll(
-        plateRegister(
-          alphabet: run.alphabet,
-          count: run.count,
-          left: rightLeft + (next - digits) * _Layout.carRightPitch,
-          top: run.alphabet == EgyptAlphabets.digits
-              ? _Layout.carDigitsCy - _Layout.carDigitsHeight / 2
-              : _Layout.carLettersCy - _Layout.carLettersHeight / 2,
-          width: _Layout.carRightPitch,
-          height: run.alphabet == EgyptAlphabets.digits
-              ? _Layout.carDigitsHeight
-              : _Layout.carLettersHeight,
+      final bool numeric = run.alphabet == EgyptAlphabets.digits;
+      final double height = numeric
+          ? _Layout.carDigitsHeight
+          : _Layout.carLettersHeight;
+      groups.add(PlateTextGroup(<int>[slots.length], key: run.key));
+      slots.add(
+        _field(
+          run.alphabet,
+          run.count,
+          rightLeft + cell * _Layout.carRightPitch,
+          (numeric ? _Layout.carDigitsCy : _Layout.carLettersCy) - height / 2,
+          _Layout.carRightPitch,
+          height,
         ),
       );
-      groups.add(
-        PlateTextGroup(<int>[
-          for (int i = 0; i < run.count; i++) next + i,
-        ], key: run.key),
-      );
-      next += run.count;
+      cell += run.count;
     }
     return PlateSpec(
       id: id,
@@ -345,26 +357,26 @@ abstract final class EgyptPlates {
         ),
       ],
       slots: <PlateSlot>[
-        ...plateRegister(
-          alphabet: EgyptAlphabets.letters,
-          count: 3,
-          left: _Layout.motoLettersLeft,
-          top: _Layout.motoLettersTop,
-          width: _Layout.motoLettersPitch,
-          height: _Layout.motoLettersHeight,
+        _field(
+          EgyptAlphabets.letters,
+          3,
+          _Layout.motoLettersLeft,
+          _Layout.motoLettersTop,
+          _Layout.motoLettersPitch,
+          _Layout.motoLettersHeight,
         ),
-        ...plateRegister(
-          alphabet: EgyptAlphabets.digits,
-          count: 4,
-          left: _Layout.motoDigitsLeft,
-          top: _Layout.motoDigitsTop,
-          width: _Layout.motoDigitsPitch,
-          height: _Layout.motoDigitsHeight,
+        _field(
+          EgyptAlphabets.digits,
+          4,
+          _Layout.motoDigitsLeft,
+          _Layout.motoDigitsTop,
+          _Layout.motoDigitsPitch,
+          _Layout.motoDigitsHeight,
         ),
       ],
       textGroups: const <PlateTextGroup>[
-        PlateTextGroup(<int>[0, 1, 2], key: 'letters'),
-        PlateTextGroup(<int>[3, 4, 5, 6], key: 'digits'),
+        PlateTextGroup(<int>[0], key: 'letters'),
+        PlateTextGroup(<int>[1], key: 'digits'),
       ],
     );
   }
