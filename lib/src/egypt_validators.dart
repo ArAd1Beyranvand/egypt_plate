@@ -1,14 +1,11 @@
 import 'package:plate_alphabet/plate_alphabet.dart';
 import 'package:plate_core/plate_core.dart';
 
-/// Judges an Egyptian plate by the length of each of its registers. Reports,
-/// never bars a keystroke.
+/// Judges a plate by the length of each register. Reports, never bars a
+/// keystroke.
 ///
-/// The article fixes the counts: three digits for Cairo and four for every
-/// other governorate, two letters for Giza and three for the rest. It also
-/// says the numbers run 1 to 9 "chosen randomly", which is too loose to
-/// enforce. [digits] and [code] are numeral groups, any other group is
-/// letters from [EgyptAlphabets.letters].
+/// The groups `digits` and `code` are numerals; any other group is letters
+/// from [EgyptAlphabets.letters]. Digit values are not checked.
 class EgyptValidator extends GatedPlateValidator {
   const EgyptValidator(this.lengths);
 

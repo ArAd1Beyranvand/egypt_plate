@@ -3,10 +3,10 @@ import 'package:plate_core/plate_core.dart';
 
 import 'egypt_colors.dart';
 
-/// Egypt as a `PlateCountry`, one per livery. The band colour is the
-/// category, so it rides on [PlateCountry.panelColor] and the spec paints it
-/// as `PlateFill.panel`; every const has the code `eg` and they compare equal,
-/// so tell plates apart by [PlateSpec.id] and pass the livery to the view.
+/// One country per livery. The band colour is the category, so it rides on
+/// [PlateCountry.panelColor] and the spec paints it as `PlateFill.panel`.
+/// All share the code `eg` and compare equal: tell plates apart by
+/// [PlateSpec.id].
 abstract final class EgyptCountry {
   static final PlateCountry private = _band(EgyptColors.privateBlue);
   static final PlateCountry taxi = _band(EgyptColors.taxiOrange);
@@ -20,11 +20,9 @@ abstract final class EgyptCountry {
     text: EgyptColors.policeInk,
   );
 
-  /// Private motorcycles share the private car's light blue.
   static final PlateCountry motorcycle = private;
 }
 
-/// A country block with no caption or flag: only the band colour.
 PlateCountry _band(Color color, {Color text = EgyptColors.ink}) => PlateCountry(
   code: 'eg',
   captionLines: <String>[],

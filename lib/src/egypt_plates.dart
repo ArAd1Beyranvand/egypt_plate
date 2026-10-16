@@ -124,7 +124,6 @@ class _BandText {
       );
 }
 
-/// A run of equal cells in one text group.
 class _Run {
   const _Run(this.key, this.alphabet, this.count);
   final String key;
@@ -132,16 +131,13 @@ class _Run {
   final int count;
 }
 
-/// Egypt's plates, the 2008 series. The band colour is the category, so
-/// [car] is private, taxi, truck, bus, tourist and customs alike: pair it with
-/// the matching `EgyptCountry` and `EgyptThemes.standard`. Registers are stored
-/// in the order they read left to right on the plate, each letter as the Latin
-/// letter the article pairs with it.
+/// The 2008 series. The band colour is the category, so [car] serves private,
+/// taxi, truck, bus, tourist and customs alike: pair it with the matching
+/// `EgyptCountry` and `EgyptThemes.standard`. Registers are stored in the
+/// order they read left to right on the plate.
 ///
-/// Not implemented: the pre-2008 all-numeric plates, whose whole face took the
-/// category colour, and a police motorcycle plate (the article gives its
-/// colour but no artwork shows its lettering). The article names no
-/// Israel-specific value.
+/// Not implemented: the pre-2008 all-numeric plates and a police motorcycle
+/// plate (no artwork shows its lettering).
 abstract final class EgyptPlates {
   /// `٢٥٩٤ ط ج س`: four digits, three letters. Every governorate but Cairo
   /// and Giza.
@@ -215,6 +211,32 @@ abstract final class EgyptPlates {
     spacing: max(0, pitch - 0.6 * 0.72 * height),
   );
 
+  static PlateSection _background(
+    double bandEnd,
+    double line,
+    double stripStart,
+    double stripEnd,
+  ) => PlateSection.rows(<PlatePart>[
+    PlatePart(PlateSection.fill(PlateFill.panel), end: bandEnd, divider: line),
+    PlatePart(
+      PlateSection.columns(<PlatePart>[
+        PlatePart(PlateSection.plain, end: stripStart),
+        PlatePart(
+          PlateSection.fill(PlateFill.color(EgyptColors.strip)),
+          end: stripEnd,
+        ),
+        PlatePart(PlateSection.plain),
+      ]),
+    ),
+  ]);
+
+  static PlateBand _screw(double left, double top, double size) => PlateBand(
+    box: PlateBox(left, top, size, size),
+    color: EgyptColors.screw,
+    topCornerRadius: size / 2,
+    bottomCornerRadius: size / 2,
+  );
+
   static PlateSpec _car(
     String id, {
     required double digitsLeft,
@@ -264,37 +286,13 @@ abstract final class EgyptPlates {
       canvasHeight: _Layout.carHeight,
       panel: const PlatePanel(box: PlateBox(0, 0, 0, 0)),
       noPanel: true,
-      background: const PlateSection.rows(<PlatePart>[
-        PlatePart(
-          PlateSection.fill(PlateFill.panel),
-          end: _Layout.carBandEnd,
-          divider: _Layout.carLine,
-        ),
-        PlatePart(
-          PlateSection.columns(<PlatePart>[
-            PlatePart(PlateSection.plain, end: _Layout.carStripStart),
-            PlatePart(
-              PlateSection.fill(PlateFill.color(EgyptColors.strip)),
-              end: _Layout.carStripEnd,
-            ),
-            PlatePart(PlateSection.plain),
-          ]),
-        ),
-      ]),
-      bands: const <PlateBand>[
-        PlateBand(
-          box: PlateBox(11.2, 7.4, 15.6, 15.6),
-          color: EgyptColors.screw,
-          topCornerRadius: 7.8,
-          bottomCornerRadius: 7.8,
-        ),
-        PlateBand(
-          box: PlateBox(325.2, 7.8, 15.6, 15.6),
-          color: EgyptColors.screw,
-          topCornerRadius: 7.8,
-          bottomCornerRadius: 7.8,
-        ),
-      ],
+      background: _background(
+        _Layout.carBandEnd,
+        _Layout.carLine,
+        _Layout.carStripStart,
+        _Layout.carStripEnd,
+      ),
+      bands: <PlateBand>[_screw(11.2, 7.4, 15.6), _screw(325.2, 7.8, 15.6)],
       labels: <PlateLabel>[
         text.label(text.latin, text.latinCx, text.latinCy, text.latinGlyph),
         text.label(text.arabic, text.arabicCx, text.arabicCy, text.arabicGlyph),
@@ -313,37 +311,13 @@ abstract final class EgyptPlates {
       panel: const PlatePanel(box: PlateBox(0, 0, 0, 0)),
       noPanel: true,
       borderWidthRatioOverride: 0.016,
-      background: const PlateSection.rows(<PlatePart>[
-        PlatePart(
-          PlateSection.fill(PlateFill.panel),
-          end: _Layout.motoBandEnd,
-          divider: _Layout.motoLine,
-        ),
-        PlatePart(
-          PlateSection.columns(<PlatePart>[
-            PlatePart(PlateSection.plain, end: _Layout.motoStripStart),
-            PlatePart(
-              PlateSection.fill(PlateFill.color(EgyptColors.strip)),
-              end: _Layout.motoStripEnd,
-            ),
-            PlatePart(PlateSection.plain),
-          ]),
-        ),
-      ]),
-      bands: const <PlateBand>[
-        PlateBand(
-          box: PlateBox(16, 12, 24, 24),
-          color: EgyptColors.screw,
-          topCornerRadius: 12,
-          bottomCornerRadius: 12,
-        ),
-        PlateBand(
-          box: PlateBox(219, 12, 24, 24),
-          color: EgyptColors.screw,
-          topCornerRadius: 12,
-          bottomCornerRadius: 12,
-        ),
-      ],
+      background: _background(
+        _Layout.motoBandEnd,
+        _Layout.motoLine,
+        _Layout.motoStripStart,
+        _Layout.motoStripEnd,
+      ),
+      bands: <PlateBand>[_screw(16, 12, 24), _screw(219, 12, 24)],
       labels: const <PlateLabel>[
         PlateLabel(
           text: 'EGYPT',
