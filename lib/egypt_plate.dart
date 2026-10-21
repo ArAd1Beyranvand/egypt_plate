@@ -5,9 +5,10 @@
 /// theme, alphabets and advisory validator.
 library;
 
+export 'package:plate_alphabet/plate_alphabet.dart' show EgyptAlphabets;
+
 export 'src/egypt_colors.dart';
 export 'src/egypt_country.dart';
-export 'src/egypt_themes.dart';
 export 'src/egypt_plates.dart';
+export 'src/egypt_themes.dart';
 export 'src/egypt_validators.dart';
-export 'package:plate_alphabet/plate_alphabet.dart' show EgyptAlphabets;
