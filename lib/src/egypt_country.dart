@@ -15,17 +15,10 @@ abstract final class EgyptCountry {
   static final PlateCountry tourist = _band(EgyptColors.touristBeige);
   static final PlateCountry customs = _band(EgyptColors.customsYellow);
   static final PlateCountry diplomatic = _band(EgyptColors.diplomaticGreen);
-  static final PlateCountry police = _band(
-    EgyptColors.policeBlue,
-    text: EgyptColors.policeInk,
-  );
+  static final PlateCountry police = _band(EgyptColors.policeBlue, text: EgyptColors.policeInk);
 
   static final PlateCountry motorcycle = private;
 }
 
-PlateCountry _band(Color color, {Color text = EgyptColors.ink}) => PlateCountry(
-  code: 'eg',
-  captionLines: <String>[],
-  panelColor: color,
-  panelTextColor: text,
-);
+PlateCountry _band(Color color, {Color text = EgyptColors.ink}) =>
+    PlateCountry(code: 'eg', captionLines: <String>[], panelColor: color, panelTextColor: text);

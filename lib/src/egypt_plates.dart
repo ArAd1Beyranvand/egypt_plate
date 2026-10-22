@@ -115,13 +115,12 @@ class _BandText {
   /// A label whose box is centred on ([cx], [cy]) and is just taller than the
   /// text's line (0.72 of the glyph height), so the text is centred in it
   /// rather than top-aligned and spilling.
-  PlateLabel label(String text, double cx, double cy, double glyph) =>
-      PlateLabel(
-        text: text,
-        box: PlateBox(cx - 70, cy - 20, 140, 40),
-        glyphHeight: glyph,
-        color: color,
-      );
+  PlateLabel label(String text, double cx, double cy, double glyph) => PlateLabel(
+    text: text,
+    box: PlateBox(cx - 70, cy - 20, 140, 40),
+    glyphHeight: glyph,
+    color: color,
+  );
 }
 
 class _Run {
@@ -188,14 +187,7 @@ abstract final class EgyptPlates {
   /// Letters over digits, `ط ج س` / `٢٥٩٤`, on a near-square plate.
   static final PlateSpec motorcycle = _motorcycle();
 
-  static List<PlateSpec> get all => <PlateSpec>[
-    car,
-    cairo,
-    giza,
-    diplomatic,
-    police,
-    motorcycle,
-  ];
+  static List<PlateSpec> get all => <PlateSpec>[car, cairo, giza, diplomatic, police, motorcycle];
 
   static PlateSlot _field(
     PlateAlphabet alphabet,
@@ -221,10 +213,7 @@ abstract final class EgyptPlates {
     PlatePart(
       PlateSection.columns(<PlatePart>[
         PlatePart(PlateSection.plain, end: stripStart),
-        PlatePart(
-          PlateSection.fill(PlateFill.color(EgyptColors.strip)),
-          end: stripEnd,
-        ),
+        PlatePart(PlateSection.fill(PlateFill.color(EgyptColors.strip)), end: stripEnd),
         PlatePart(PlateSection.plain),
       ]),
     ),
@@ -245,8 +234,7 @@ abstract final class EgyptPlates {
     _BandText text = _BandText.egypt,
   }) {
     final int cells = right.fold(0, (int n, _Run r) => n + r.count);
-    final double rightLeft =
-        _Layout.carRightCentre - cells * _Layout.carRightPitch / 2;
+    final double rightLeft = _Layout.carRightCentre - cells * _Layout.carRightPitch / 2;
     final List<PlateSlot> slots = <PlateSlot>[
       _field(
         EgyptAlphabets.digits,
@@ -263,9 +251,7 @@ abstract final class EgyptPlates {
     var cell = 0;
     for (final _Run run in right) {
       final bool numeric = run.alphabet == EgyptAlphabets.digits;
-      final double height = numeric
-          ? _Layout.carDigitsHeight
-          : _Layout.carLettersHeight;
+      final double height = numeric ? _Layout.carDigitsHeight : _Layout.carLettersHeight;
       groups.add(PlateTextGroup(<int>[slots.length], key: run.key));
       slots.add(
         _field(
@@ -319,16 +305,8 @@ abstract final class EgyptPlates {
       ),
       bands: <PlateBand>[_screw(16, 12, 24), _screw(219, 12, 24)],
       labels: const <PlateLabel>[
-        PlateLabel(
-          text: 'EGYPT',
-          box: PlateBox(0, 40, 110, 38),
-          glyphHeight: 32,
-        ),
-        PlateLabel(
-          text: 'مصر',
-          box: PlateBox(147.5, 24, 110, 40),
-          glyphHeight: 62,
-        ),
+        PlateLabel(text: 'EGYPT', box: PlateBox(0, 40, 110, 38), glyphHeight: 32),
+        PlateLabel(text: 'مصر', box: PlateBox(147.5, 24, 110, 40), glyphHeight: 62),
       ],
       slots: <PlateSlot>[
         _field(
