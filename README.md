@@ -10,7 +10,17 @@ https://platexample.ir/#/discover/egypt
 
 # egypt_plate
 
-Egypt's licence plates for [`plate_core`](https://pub.dev/packages/plate_core) — one blue-banded design in eight band colours, plus the motorcycle plate, with `EgyptAlphabets` and an advisory validator.
+Egypt's licence plates for the `plate_core` library. The 2008 series: one design in nine liveries, a Cairo and a Giza register, diplomatic and police variants and a two-line motorcycle plate, with their theme, alphabets and advisory validator.
+
+## Install
+
+```yaml
+dependencies:
+  plate_core: ^0.12.0
+  egypt_plate: ^0.1.0
+```
+
+## Use
 
 ```dart
 import 'package:plate_core/plate_core.dart';
@@ -19,45 +29,30 @@ import 'package:egypt_plate/egypt_plate.dart';
 PlateCanvas(
   spec: EgyptPlates.car,
   theme: EgyptThemes.standard,
-  country: EgyptCountry.taxi,
-  validator: EgyptValidator.car,
+  validator: const EgyptValidator(),
   autoValidate: true,
+  onChooseCharacter: noCharacterChooser,
 );
 ```
 
-## Also available
+## Contains
 
-- [`plate_core`](https://pub.dev/packages/plate-core) - Paint license plates.
-- [`plate_alphabet`](https://pub.dev/packages/plate-alphabet) - A library of alphabets for license plates.
-- [`plate_keypad`](https://pub.dev/packages/plate-keypad) - A character picker for license plates.
-- [`plate_number_holder`](https://pub.dev/packages/plate-number-holder) - A frame to hold license plate numbers.
-- [`algeria_plate`](https://pub.dev/packages/algeria-plate) - Algeria's licence plates.
-- [`bolivia_plate`](https://pub.dev/packages/bolivia-plate) - Bolivia's licence plates.
-- [`brunei_plate`](https://pub.dev/packages/brunei-plate) - Brunei's licence plates.
-- [`chile_plate`](https://pub.dev/packages/chile-plate) - Chile's licence plates.
-- [`colombia_plate`](https://pub.dev/packages/colombia-plate) - Colombia's licence plates.
-- [`cuba_plate`](https://pub.dev/packages/cuba-plate) - Cuba's licence plates.
-- [`djibouti_plate`](https://pub.dev/packages/djibouti-plate) - Djibouti's licence plates.
-- [`egypt_plate`](https://pub.dev/packages/egypt-plate) - Egypt's licence plates.
-- [`germany_plate`](https://pub.dev/packages/germany-plate) - Germany's licence plates.
-- [`india_plate`](https://pub.dev/packages/india-plate) - India's licence plates.
-- [`indonesia_plate`](https://pub.dev/packages/indonesia-plate) - Indonesia's licence plates.
-- [`iran_plate`](https://pub.dev/packages/iran-plate) - Iran's licence plates.
-- [`iranshahr_plate`](https://pub.dev/packages/iranshahr-plate) - Iranshahr region's licence plates.
-- [`italy_plate`](https://pub.dev/packages/italy-plate) - Italy's licence plates.
-- [`kyrgyzstan_plate`](https://pub.dev/packages/kyrgyzstan-plate) - Kyrgyzstan's licence plates.
-- [`laos_plate`](https://pub.dev/packages/laos-plate) - Laos's licence plates.
-- [`lebanon_plate`](https://pub.dev/packages/lebanon-plate) - Lebanon's licence plates.
-- [`malaysia_plate`](https://pub.dev/packages/malaysia-plate) - Malaysia's licence plates.
-- [`mali_plate`](https://pub.dev/packages/mali-plate) - Mali's licence plates.
-- [`niger_plate`](https://pub.dev/packages/niger-plate) - Niger's licence plates.
-- [`palestine_plate`](https://pub.dev/packages/palestine-plate) - Palestine's licence plates.
-- [`republic_of_ireland_plate`](https://pub.dev/packages/republic-of-ireland-plate) - Republic of Ireland's licence plates.
-- [`slovenia_plate`](https://pub.dev/packages/slovenia-plate) - Slovenia's licence plates.
-- [`spain_plate`](https://pub.dev/packages/spain-plate) - Spain's licence plates.
-- [`sudan_plate`](https://pub.dev/packages/sudan-plate) - Sudan's licence plates.
-- [`tunisia_plate`](https://pub.dev/packages/tunisia-plate) - Tunisia's licence plates.
-- [`venezuela_plate`](https://pub.dev/packages/venezuela-plate) - Venezuela's licence plates.
-- [`vietnam_plate`](https://pub.dev/packages/vietnam-plate) - Vietnam's licence plates.
-- [`yemen_plate`](https://pub.dev/packages/yemen-plate) - Yemen's licence plates.
-- [`zimbabwe_plate`](https://pub.dev/packages/zimbabwe-plate) - Zimbabwe's licence plates.
+- `EgyptCountry` — country panels: `private`, `taxi`, `truck`, `bus`, `tourist`, `customs`, `diplomatic`, `police` and 1 more.
+- `EgyptPlates` — 6 plate specs: `car`, `cairo`, `giza`, `diplomatic`, `police`, `motorcycle`.
+- `EgyptThemes` — 1 theme: `standard`.
+- `EgyptValidator` — advisory validator; flags the frame, never blocks a keystroke.
+
+## Plates
+
+The 2008 series. The band colour is the category, so `car` serves private,
+taxi, truck, bus, tourist and customs alike: pair it with the matching
+`EgyptCountry` and `EgyptThemes.standard`. Registers are stored in the
+order they read left to right on the plate.
+
+Not implemented: the pre-2008 all-numeric plates and a police motorcycle
+plate (no artwork shows its lettering).
+
+## Part of plate
+
+Painted by [`plate_core`](https://pub.dev/packages/plate_core); alphabets shared through [`plate_alphabet`](https://pub.dev/packages/plate_alphabet); optional character picker in [`plate_keypad`](https://pub.dev/packages/plate_keypad).
+
