@@ -12,16 +12,31 @@ class EgyptValidator extends GatedPlateValidator {
   /// Group key to the number of cells it must hold.
   final Map<String, int> lengths;
 
-  static const EgyptValidator car = EgyptValidator(<String, int>{'digits': 4, 'letters': 3});
-  static const EgyptValidator cairo = EgyptValidator(<String, int>{'digits': 3, 'letters': 3});
-  static const EgyptValidator giza = EgyptValidator(<String, int>{'digits': 4, 'letters': 2});
-  static const EgyptValidator diplomatic = EgyptValidator(<String, int>{'digits': 3, 'code': 2});
+  static const EgyptValidator car = EgyptValidator(<String, int>{
+    'digits': 4,
+    'letters': 3,
+  });
+  static const EgyptValidator cairo = EgyptValidator(<String, int>{
+    'digits': 3,
+    'letters': 3,
+  });
+  static const EgyptValidator giza = EgyptValidator(<String, int>{
+    'digits': 4,
+    'letters': 2,
+  });
+  static const EgyptValidator diplomatic = EgyptValidator(<String, int>{
+    'digits': 3,
+    'code': 2,
+  });
   static const EgyptValidator police = EgyptValidator(<String, int>{
     'digits': 4,
     'code': 2,
     'letters': 1,
   });
-  static const EgyptValidator motorcycle = EgyptValidator(<String, int>{'letters': 3, 'digits': 4});
+  static const EgyptValidator motorcycle = EgyptValidator(<String, int>{
+    'letters': 3,
+    'digits': 4,
+  });
 
   @override
   String get gateGroup => 'digits';
@@ -36,7 +51,9 @@ class EgyptValidator extends GatedPlateValidator {
       final String value = entry.group(g.key);
       final bool ok = g.key == 'letters'
           ? value.length == g.value &&
-                value.split('').every(EgyptAlphabets.letters.characters.contains)
+                value
+                    .split('')
+                    .every(EgyptAlphabets.letters.characters.contains)
           : isDigitsOfLength(value, g.value);
       if (!ok) return PlateValidation.invalid(reasonFor(g.key, g.value));
     }

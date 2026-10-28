@@ -22,7 +22,10 @@ void main() {
   });
 
   test('a letter outside the alphabet is reported', () {
-    final PlateEntry entry = PlateEntry(spec: EgyptPlates.car, values: v('2594 TGZ'));
+    final PlateEntry entry = PlateEntry(
+      spec: EgyptPlates.car,
+      values: v('2594 TGZ'),
+    );
     expect(EgyptValidator.car.validate(entry).isValid, isFalse);
   });
 }
